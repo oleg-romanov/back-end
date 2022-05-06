@@ -1,8 +1,11 @@
 package itis.eventmaker.security;
 
+import itis.eventmaker.exceptions.NotFoundException;
 import itis.eventmaker.model.User;
 import io.jsonwebtoken.*;
+import itis.eventmaker.repositories.UserRepository;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +16,9 @@ import static org.springframework.util.StringUtils.hasText;
 @Component
 @Log
 public class JwtHelper {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -66,5 +72,19 @@ public class JwtHelper {
             return bearer.substring(7);
         }
         return null;
+    }
+
+    public static String getTokenFromHeader(String bearer) {
+        if (hasText(bearer) && bearer.startsWith("Bearer ")) {
+            return bearer.substring(7);
+        }
+        return null;
+    }
+
+    public User getUserFromHeader(String authorization) {
+        String token = JwtHelper.getTokenFromHeader(authorization);
+        String emailFromToken = getEmailFromToken(token);
+        return userRepository.findByEmail(emailFromToken)
+                .orElseThrow(NotFoundException::new);
     }
 }
