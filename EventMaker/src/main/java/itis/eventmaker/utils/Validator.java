@@ -1,7 +1,8 @@
 package itis.eventmaker.utils;
 
-
+import itis.eventmaker.dto.in.SignInDto;
 import itis.eventmaker.dto.in.SignUpDto;
+import itis.eventmaker.model.User;
 import itis.eventmaker.services.UserService;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,18 @@ public class Validator extends ResponseCreator {
 
     public Validator(UserService userService) {
         this.userService = userService;
+    }
+
+    public Optional<ErrorEntity> getLoginFormError(SignInDto form) {
+        Optional<User> optionalUserEntity = userService.findOneByEmail(form.getEmail());
+        if (!optionalUserEntity.isPresent()) {
+            return Optional.of(ErrorEntity.USER_NOT_FOUND);
+        }
+        User userEntity = optionalUserEntity.get();
+        if (userEntity.getPassword().equals(form.getPassword()) == false) {
+            return Optional.of(ErrorEntity.INCORRECT_PASSWORD);
+        }
+        return Optional.empty();
     }
 
     public Optional<ErrorEntity> getUserRegisterFormError(SignUpDto signUpDto) {
