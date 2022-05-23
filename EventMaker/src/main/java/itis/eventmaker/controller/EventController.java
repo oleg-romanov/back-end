@@ -43,12 +43,13 @@ public class EventController extends ResponseCreator {
         return eventService.deleteEventById(authorization, id);
     }
 
-    @GetMapping("/event/list/search")
+    @GetMapping("/list/search")
     @ResponseBody
-    public ResponseEntity<List<EventDto>> search(@RequestParam("page") Integer page,
+    ResponseEntity<List<EventDto>> search(@RequestParam("page") Integer page,
+                                                 @RequestParam("size") Integer size,
                                                    @RequestParam(value = "q", required = false) String query,
                                                    @RequestParam(value = "sort", required = false) String sort,
                                                    @RequestParam(value = "direction", required = false) String direction) {
-        return ResponseEntity.ok(eventService.search(3, page, query, sort, direction));
+        return ResponseEntity.ok(eventService.search(size, page, query, sort, direction));
     }
 }
