@@ -1,12 +1,14 @@
 package itis.eventmaker.dto.in;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import itis.eventmaker.model.Event;
 import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Data
 @Builder
@@ -19,6 +21,7 @@ public class EventDto {
     private Date date;
     private Long eventTypeId;
     private Long categoryId;
+
 
     public static EventDto of(Event event) {
         return EventDto.builder()
@@ -35,4 +38,5 @@ public class EventDto {
                 .map(EventDto::of)
                 .collect(Collectors.toList());
     }
+
 }

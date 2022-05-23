@@ -1,6 +1,7 @@
 package itis.eventmaker.services;
 
 import itis.eventmaker.dto.in.EventDto;
+
 import itis.eventmaker.model.Category;
 import org.springframework.http.ResponseEntity;
 
@@ -14,4 +15,5 @@ public interface EventService {
     ResponseEntity getEventById(String authorization, long id);
     ResponseEntity deleteEventById(String authorization, long id);
     List<EventDto> search(Integer size, Integer page, String query, String sort, String direction);
+
 }
