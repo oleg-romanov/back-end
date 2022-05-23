@@ -2,8 +2,11 @@ package itis.eventmaker.security;
 
 import itis.eventmaker.exceptions.NotFoundException;
 import itis.eventmaker.model.User;
-import io.jsonwebtoken.*;
 import itis.eventmaker.repositories.UserRepository;
+import io.jsonwebtoken.*;
+
+import io.jsonwebtoken.impl.TextCodec;
+
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/sign-up
+POST http://0.0.0.0:8080/sign-up
 Content-Type: application/json
 
 {
@@ -15,6 +15,9 @@ Content-Type: application/json
     "email":"1234@1234",
     "password":"123123"
 }
+
+###
+GET http://localhost:8080/event/list/search?page=0&size=1
 
 
 

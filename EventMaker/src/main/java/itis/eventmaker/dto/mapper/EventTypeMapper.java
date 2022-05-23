@@ -1,9 +1,10 @@
 package itis.eventmaker.dto.mapper;
 
+
+import itis.eventmaker.security.JwtHelper;
 import itis.eventmaker.dto.in.EventTypeDto;
 import itis.eventmaker.dto.out.EventTypeOutDto;
 import itis.eventmaker.model.EventType;
-import itis.eventmaker.security.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,9 @@ import java.util.stream.Collectors;
 public class EventTypeMapper {
 
     @Autowired
-    itis.eventmaker.dto.mapper.EventMapper eventMapper;
+
+    EventMapper eventMapper;
+
 
     @Autowired
     JwtHelper jwtHelper;

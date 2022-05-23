@@ -1,10 +1,10 @@
 package itis.eventmaker.controller;
 
+import itis.eventmaker.security.JwtHelper;
 import itis.eventmaker.dto.in.SignInDto;
 import itis.eventmaker.dto.in.SignUpDto;
 import itis.eventmaker.dto.in.TokenDto;
 import itis.eventmaker.model.User;
-import itis.eventmaker.security.JwtHelper;
 import itis.eventmaker.services.AuthService;
 import itis.eventmaker.services.CategoryService;
 import itis.eventmaker.services.UserService;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
+//@AllArgsConstructor
 public class AuthController extends ResponseCreator {
     @Autowired
     private JwtHelper jwtHelper;
@@ -52,6 +53,10 @@ public class AuthController extends ResponseCreator {
 
     @PostMapping("/sign-in")
     ResponseEntity loginUser(@RequestBody SignInDto signInDto) {
+//        Optional<ErrorEntity> optionalError = validator.getLoginFormError(signInDto);
+//        if(optionalError.isPresent()) {
+//            return createErrorResponse(optionalError.get());
+//        }
         User user = userService.getByEmail(signInDto.getEmail());
         return createGoodResponse(new TokenDto(jwtHelper.generateToken(user)));
     }

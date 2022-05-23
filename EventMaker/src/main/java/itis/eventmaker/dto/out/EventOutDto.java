@@ -2,10 +2,8 @@ package itis.eventmaker.dto.out;
 
 import itis.eventmaker.dto.in.CategoryDto;
 import itis.eventmaker.dto.in.EventTypeDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.List;

@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
+
 
 
 @RestController
@@ -21,6 +23,11 @@ public class EventController extends ResponseCreator {
     @PostMapping
     ResponseEntity createEvent(@RequestHeader String authorization, @Validated @RequestBody EventDto eventDto) throws ParseException {
         return eventService.createEvent(authorization, eventDto);
+    }
+
+    @PutMapping(path = "/{id}")
+    ResponseEntity updateEventById(@RequestHeader String authorization, @RequestBody EventDto eventDto, @PathVariable long id) {
+        return eventService.updateEventById(authorization, eventDto, id);
     }
 
     @GetMapping
@@ -36,5 +43,15 @@ public class EventController extends ResponseCreator {
     @DeleteMapping(path = "/{id}")
     ResponseEntity deleteEventById(@RequestHeader String authorization, @PathVariable long id) {
         return eventService.deleteEventById(authorization, id);
+    }
+
+    @GetMapping("/list/search")
+    @ResponseBody
+    ResponseEntity<List<EventDto>> search(@RequestParam("page") Integer page,
+                                                 @RequestParam("size") Integer size,
+                                                   @RequestParam(value = "q", required = false) String query,
+                                                   @RequestParam(value = "sort", required = false) String sort,
+                                                   @RequestParam(value = "direction", required = false) String direction) {
+        return ResponseEntity.ok(eventService.search(size, page, query, sort, direction));
     }
 }

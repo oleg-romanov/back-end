@@ -4,10 +4,13 @@ import itis.eventmaker.model.Category;
 import itis.eventmaker.security.JwtHelper;
 import itis.eventmaker.dto.in.SignUpDto;
 import itis.eventmaker.dto.in.TokenDto;
+import itis.eventmaker.model.State;
 import itis.eventmaker.model.User;
 import itis.eventmaker.repositories.UserRepository;
 import itis.eventmaker.services.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
