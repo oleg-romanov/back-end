@@ -10,6 +10,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class EventOutDto {
                 .user(UserDtoOut.builder()
                         .name(event.getUser().getName())
                         .build())
-                .participants(null)
+                .participants(Collections.emptyList())
                 .build();
     }
 

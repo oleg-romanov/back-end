@@ -6,7 +6,6 @@ import itis.eventmaker.model.Event;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
