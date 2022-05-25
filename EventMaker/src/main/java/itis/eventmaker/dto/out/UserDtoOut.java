@@ -1,10 +1,11 @@
 package itis.eventmaker.dto.out;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDtoOut {
     private String name;
 }

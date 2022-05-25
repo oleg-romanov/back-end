@@ -1,7 +1,7 @@
 package itis.eventmaker.services;
 
 import itis.eventmaker.dto.in.EventDto;
-import itis.eventmaker.model.Category;
+import itis.eventmaker.dto.out.EventOutDto;
 import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;
@@ -13,5 +13,5 @@ public interface EventService {
     ResponseEntity getAllEvents(String authorization);
     ResponseEntity getEventById(String authorization, long id);
     ResponseEntity deleteEventById(String authorization, long id);
-    List<EventDto> search(Integer size, Integer page, String query, String sort, String direction);
+    List<EventOutDto> search(Integer size, Integer page, String query, String sort, String direction);
 }

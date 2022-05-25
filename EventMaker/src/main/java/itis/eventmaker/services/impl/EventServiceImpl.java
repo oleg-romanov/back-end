@@ -1,6 +1,7 @@
 package itis.eventmaker.services.impl;
 
 import itis.eventmaker.dto.mapper.EventTypeMapper;
+import itis.eventmaker.dto.out.EventOutDto;
 import itis.eventmaker.model.Category;
 import itis.eventmaker.model.EventType;
 import itis.eventmaker.security.JwtHelper;
@@ -109,7 +110,7 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
     }
 
     @Override
-    public List<EventDto> search(Integer size, Integer page, String query, String sortParameter, String directionParameter) {
+    public List<EventOutDto> search(Integer size, Integer page, String query, String sortParameter, String directionParameter) {
         Sort.Direction direction = Sort.Direction.ASC;
         Sort sort = Sort.by(direction, "id");
 
@@ -127,6 +128,6 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
 
         PageRequest pageRequest = PageRequest.of(page, size, sort);
         Page<Event> papersPage = eventRepository.search(query, pageRequest);
-        return EventDto.from(papersPage.getContent());
+        return EventOutDto.from(papersPage.getContent());
     }
 }
