@@ -1,7 +1,7 @@
 package itis.eventmaker.services;
 
-import itis.eventmaker.dto.in.EventDto;
 import itis.eventmaker.dto.out.EventOutDto;
+import itis.eventmaker.model.Category;
 import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;

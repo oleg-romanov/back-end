@@ -9,17 +9,23 @@ import itis.eventmaker.dto.in.EventDto;
 import itis.eventmaker.dto.mapper.EventMapper;
 import itis.eventmaker.exceptions.NotFoundException;
 import itis.eventmaker.model.Event;
+
 import itis.eventmaker.model.User;
 import itis.eventmaker.repositories.CategoryRepository;
 import itis.eventmaker.repositories.EventRepository;
 import itis.eventmaker.repositories.EventTypeRepository;
+
+import itis.eventmaker.security.JwtHelper;
+
 import itis.eventmaker.services.EventService;
 import itis.eventmaker.utils.ErrorEntity;
 import itis.eventmaker.utils.ResponseCreator;
 import lombok.AllArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -48,11 +54,13 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
         if (optionalUserEvent.isPresent()) {
             return createErrorResponse(ErrorEntity.EVENT_ALREADY_CREATED);
         }
+
 //        Event event = new Event(convertedEventName, eventDto.getDescription(), eventDto.getDate(),
 //                eventTypeRepository.findById(eventDto.getEventTypeId())
 //                        .orElseThrow(NotFoundException::new),
 //                categoryRepository.findById(eventDto.getCategoryId())
 //                        .orElseThrow(NotFoundException::new), user);
+
 
         Category category = categoryRepository.findById(eventDto.getCategoryId()).orElseThrow(NotFoundException::new);
 
@@ -72,6 +80,7 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
     }
 
     @Override
+
     public ResponseEntity updateEventById(String authorization, EventDto eventDto, long id) {
         Long userId = jwtHelper.getUserFromHeader(authorization).getId();
         Event event = eventRepository.findByIdAndUserId(id, userId)
@@ -88,6 +97,7 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
     }
 
     @Override
+
     public ResponseEntity getAllEvents(String authorization) {
         Long userId = jwtHelper.getUserFromHeader(authorization).getId();
         List<Event> events = eventRepository.findAllByUserId(userId);
@@ -108,6 +118,7 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
                 .orElseThrow(() -> new NotFoundException("Event with id " + id + " not found")));
         return createGoodResponse("Deleted");
     }
+
 
     @Override
     public List<EventOutDto> search(Integer size, Integer page, String query, String sortParameter, String directionParameter) {
@@ -130,4 +141,5 @@ public class EventServiceImpl extends ResponseCreator implements EventService {
         Page<Event> papersPage = eventRepository.search(query, pageRequest);
         return EventOutDto.from(papersPage.getContent());
     }
+
 }

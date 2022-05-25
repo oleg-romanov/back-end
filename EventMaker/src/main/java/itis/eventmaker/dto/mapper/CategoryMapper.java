@@ -1,7 +1,9 @@
 package itis.eventmaker.dto.mapper;
 
 import itis.eventmaker.dto.in.CategoryDto;
+
 import itis.eventmaker.dto.out.CategoryOutDto;
+
 import itis.eventmaker.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,7 @@ public class CategoryMapper {
 
     @Autowired
     UserMapper userMapper;
+
 
     public Category toCategoryConvert(CategoryDto categoryDto) {
         return toCategoryConvert(categoryDto, new Category());
@@ -39,12 +42,14 @@ public class CategoryMapper {
 
     }
 
+
     public CategoryDto toCategoryDtoConvert(Category category) {
         return CategoryDto.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .build();
     }
+
 
     public List<Category> toCategoryList(List<CategoryDto> categoryDtos) {
         return categoryDtos
@@ -59,4 +64,5 @@ public class CategoryMapper {
                 .map(this::toCategoryOutDtoConvert)
                 .collect(Collectors.toList());
     }
+
 }

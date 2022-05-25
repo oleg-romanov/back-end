@@ -29,10 +29,12 @@ public class EventTypeController extends ResponseCreator {
         return eventTypeService.getEventTypeById(authorization, id);
     }
 
+
     @PutMapping(path = "/{id}")
     ResponseEntity updateEventTypeById(@RequestHeader String authorization, @PathVariable long id, @RequestBody EventTypeDto eventTypeDto) {
         return eventTypeService.updateEventTypeById(authorization, id, eventTypeDto);
     }
+
 
     @DeleteMapping(path = "/{id}")
     ResponseEntity deleteEventTypeById(@RequestHeader String authorization, @PathVariable long id) {
