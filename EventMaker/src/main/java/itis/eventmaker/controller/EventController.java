@@ -1,16 +1,15 @@
 package itis.eventmaker.controller;
 
 import itis.eventmaker.dto.in.EventDto;
+import itis.eventmaker.dto.out.EventOutDto;
 import itis.eventmaker.services.EventService;
 import itis.eventmaker.utils.ResponseCreator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.util.List;
-
 
 
 @RestController
@@ -47,11 +46,11 @@ public class EventController extends ResponseCreator {
 
     @GetMapping("/list/search")
     @ResponseBody
-    ResponseEntity<List<EventDto>> search(@RequestParam("page") Integer page,
+    ResponseEntity<List<EventOutDto>> search(@RequestParam("page") Integer page,
                                                  @RequestParam("size") Integer size,
-                                                   @RequestParam(value = "q", required = false) String query,
-                                                   @RequestParam(value = "sort", required = false) String sort,
-                                                   @RequestParam(value = "direction", required = false) String direction) {
+                                                 @RequestParam(value = "q", required = false) String query,
+                                                 @RequestParam(value = "sort", required = false) String sort,
+                                                 @RequestParam(value = "direction", required = false) String direction) {
         return ResponseEntity.ok(eventService.search(size, page, query, sort, direction));
     }
 }

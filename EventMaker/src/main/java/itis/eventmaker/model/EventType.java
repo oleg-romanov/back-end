@@ -1,5 +1,6 @@
 package itis.eventmaker.model;
 
+import itis.eventmaker.dto.in.EventTypeDto;
 import lombok.*;
 
 import javax.persistence.*;

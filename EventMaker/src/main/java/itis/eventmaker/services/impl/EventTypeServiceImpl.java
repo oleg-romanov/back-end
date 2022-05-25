@@ -1,8 +1,6 @@
 package itis.eventmaker.services.impl;
 
-
 import itis.eventmaker.security.JwtHelper;
-
 import itis.eventmaker.dto.in.EventTypeDto;
 import itis.eventmaker.dto.mapper.EventTypeMapper;
 import itis.eventmaker.exceptions.NotFoundException;
@@ -11,9 +9,6 @@ import itis.eventmaker.model.EventType;
 import itis.eventmaker.model.User;
 import itis.eventmaker.repositories.EventRepository;
 import itis.eventmaker.repositories.EventTypeRepository;
-
-import itis.eventmaker.security.JwtHelper;
-
 import itis.eventmaker.services.EventTypeService;
 import itis.eventmaker.utils.ErrorEntity;
 import itis.eventmaker.utils.ResponseCreator;
@@ -65,7 +60,6 @@ public class EventTypeServiceImpl extends ResponseCreator implements EventTypeSe
                 orElseThrow(() -> new NotFoundException("Event Type with id " + id + " not found"))));    }
 
     @Override
-
     public ResponseEntity updateEventTypeById(String authorization, long id, EventTypeDto eventTypeDto) {
         Long userId = jwtHelper.getUserFromHeader(authorization).getId();
         EventType eventType = eventTypeRepository.findByIdAndUserId(id, userId)
@@ -76,7 +70,6 @@ public class EventTypeServiceImpl extends ResponseCreator implements EventTypeSe
     }
 
     @Override
-
     public ResponseEntity deleteEventTypeById(String authorization, long id) {
         Long userId = jwtHelper.getUserFromHeader(authorization).getId();
         EventType eventType = eventTypeRepository.findByIdAndUserId(id, userId)

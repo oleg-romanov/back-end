@@ -1,12 +1,18 @@
 package itis.eventmaker.dto.out;
 
 import itis.eventmaker.dto.in.CategoryDto;
+import itis.eventmaker.dto.in.EventDto;
 import itis.eventmaker.dto.in.EventTypeDto;
-
+import itis.eventmaker.model.Event;
+import itis.eventmaker.services.EventService;
+import itis.eventmaker.services.impl.EventServiceImpl;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -22,4 +28,33 @@ public class EventOutDto {
     private CategoryDto category;
     private UserDtoOut user;
     private List<UserDtoOut> participants;
+
+    public static EventOutDto of(Event event) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = sdf.format(event.getDate());
+        return EventOutDto.builder()
+                .id(event.getId())
+                .name(event.getName())
+                .description(event.getDescription())
+                .date(stringDate)
+                .eventType(EventTypeDto.builder()
+                        .id(event.getEventType().getId())
+                        .name(event.getEventType().getName())
+                        .build())
+                .category(CategoryDto.builder()
+                        .id(event.getCategory().getId())
+                        .name(event.getCategory().getName())
+                        .build())
+                .user(UserDtoOut.builder()
+                        .name(event.getUser().getName())
+                        .build())
+                .participants(Collections.emptyList())
+                .build();
+    }
+
+    public static List<EventOutDto> from(List<Event> services) {
+        return services.stream()
+                .map(EventOutDto::of)
+                .collect(Collectors.toList());
+    }
 }
