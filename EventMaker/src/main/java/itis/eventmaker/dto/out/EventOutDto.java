@@ -9,6 +9,7 @@ import itis.eventmaker.services.impl.EventServiceImpl;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,13 @@ public class EventOutDto {
     private List<UserDtoOut> participants;
 
     public static EventOutDto of(Event event) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = sdf.format(event.getDate());
         return EventOutDto.builder()
                 .id(event.getId())
                 .name(event.getName())
                 .description(event.getDescription())
-                .date(String.valueOf(event.getDate()))
+                .date(stringDate)
                 .eventType(EventTypeDto.builder()
                         .id(event.getEventType().getId())
                         .name(event.getEventType().getName())
